@@ -12,9 +12,27 @@ namespace View
 {
     public partial class GraphView : Form
     {
+        /// <summary>
+        /// Instantiating the view class.
+        /// </summary>
         public GraphView()
         {
             InitializeComponent();
+        }
+
+        private void UploadFirstGraph(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UploadSecondGraph(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GetAnswer(object sender, EventArgs e)
+        {
+
         }
     }
 }

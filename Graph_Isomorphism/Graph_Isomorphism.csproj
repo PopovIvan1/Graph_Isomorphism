@@ -97,5 +97,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\View\View.csproj">
+      <Project>{5f1df1aa-456b-4661-99c9-8eede14bb390}</Project>
+      <Name>View</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
