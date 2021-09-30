@@ -111,7 +111,6 @@
             this.myFirstGraphBotton.TabIndex = 18;
             this.myFirstGraphBotton.Text = "Upload first graph";
             this.myFirstGraphBotton.UseVisualStyleBackColor = true;
-            this.myFirstGraphBotton.Click += new System.EventHandler(this.UploadFirstGraph);
             // 
             // mySecondGraphBotton
             // 
@@ -121,7 +120,6 @@
             this.mySecondGraphBotton.TabIndex = 19;
             this.mySecondGraphBotton.Text = "Upload second graph";
             this.mySecondGraphBotton.UseVisualStyleBackColor = true;
-            this.mySecondGraphBotton.Click += new System.EventHandler(this.UploadSecondGraph);
             // 
             // myAnswerBotton
             // 
@@ -131,7 +129,6 @@
             this.myAnswerBotton.TabIndex = 20;
             this.myAnswerBotton.Text = "Get answer";
             this.myAnswerBotton.UseVisualStyleBackColor = true;
-            this.myAnswerBotton.Click += new System.EventHandler(this.GetAnswer);
             // 
             // myAnswerLabel
             // 
