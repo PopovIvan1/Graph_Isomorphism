@@ -1,8 +1,9 @@
 ﻿using System;
+using ModelInfrastructure;
 
 namespace Model
 {
-    public class GraphModel
+    public class GraphModel : IGraphModel
     {
     }
 }

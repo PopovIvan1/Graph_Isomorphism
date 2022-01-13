@@ -98,6 +98,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControllerInfrastructure\ControllerInfrastructure.csproj">
+      <Project>{07c041b9-09ed-4d70-8589-e45d43579d3c}</Project>
+      <Name>ControllerInfrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Controller\Controller.csproj">
+      <Project>{fa576ea6-35a2-499c-9411-c910e28efaa2}</Project>
+      <Name>Controller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelInfrastructure\ModelInfrastructure.csproj">
+      <Project>{3cdcc977-6834-4c32-a500-c45cbfe9f5a9}</Project>
+      <Name>ModelInfrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{386ee14b-7384-4c59-9a2b-61b46394b76d}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewInfrastructure\ViewInfrastructure.csproj">
+      <Project>{30820dda-a7c8-4f92-a92a-682236bc1988}</Project>
+      <Name>ViewInfrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\View\View.csproj">
       <Project>{5f1df1aa-456b-4661-99c9-8eede14bb390}</Project>
       <Name>View</Name>

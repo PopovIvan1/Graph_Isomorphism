@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using View;
+using Controller;
+using Model;
 
 namespace Graph_Isomorphism
 {
@@ -15,6 +14,7 @@ namespace Graph_Isomorphism
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var aView = new GraphView();
+            new GraphController(new GraphModel(), aView);
             Application.Run(aView);
         }
     }

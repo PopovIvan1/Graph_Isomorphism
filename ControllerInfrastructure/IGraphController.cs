@@ -6,6 +6,11 @@
     public interface IGraphController
     {
         /// <summary>
+        /// Get alroritm answer.
+        /// </summary>
+        void GetAnswer();
+
+        /// <summary>
         /// Upload first graph from file.
         /// </summary>
         void UploadFirstGraph();
@@ -14,10 +19,5 @@
         /// Upload second graph from file.
         /// </summary>
         void UploadSecondGraph();
-
-        /// <summary>
-        /// Get alroritm answer.
-        /// </summary>
-        void GetAnswer();
     }
 }

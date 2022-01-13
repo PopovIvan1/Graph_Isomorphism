@@ -13,4 +13,10 @@
     <OutputPath>..\Output\Release\</OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ControllerInfrastructure\ControllerInfrastructure.csproj" />
+    <ProjectReference Include="..\ModelInfrastructure\ModelInfrastructure.csproj" />
+    <ProjectReference Include="..\ViewInfrastructure\ViewInfrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
