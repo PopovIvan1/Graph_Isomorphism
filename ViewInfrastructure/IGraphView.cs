@@ -44,5 +44,10 @@ namespace ViewInfrastructure
         /// Clear the view.
         /// </summary>
         void ViewClear();
+
+        /// <summary>
+        /// Upload text file.
+        /// </summary>
+        string UploadFile();
     }
 }

@@ -9,7 +9,7 @@ namespace View
     {
         public Action UploadFirstGraph { get; set; }
         public Action UploadSecondGraph { get; set; }
-       public  Action GetAnswer { get; set; }
+        public  Action GetAnswer { get; set; }
 
         /// <summary>
         /// Instantiating the view class.
@@ -123,6 +123,19 @@ namespace View
         private void getAnswer(object sender, EventArgs e)
         {
             GetAnswer?.Invoke();
+        }
+
+        /// <summary>
+        /// Upload text file.
+        /// </summary>
+        public string UploadFile()
+        {
+            OpenFileDialog aDialog = new OpenFileDialog();
+            if (aDialog.ShowDialog() == DialogResult.OK)
+            {
+                return aDialog.FileName;
+            }
+            else return null;
         }
     }
 }
