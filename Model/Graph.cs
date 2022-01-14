@@ -1,0 +1,7 @@
+﻿namespace Model
+{
+    class Graph
+    {
+
+    }
+}
