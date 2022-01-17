@@ -25,13 +25,9 @@ namespace ModelInfrastructure
         void StartAlgoritm();
 
         /// <summary>
-        /// initialization first graph.
+        /// Upload graph from file.
         /// </summary>
-        void InitFirstGraph();
+        void UploadGraph(string theFileName, int theGraphNumber);
 
-        /// <summary>
-        /// initialization second graph.
-        /// </summary>
-        void InitSecondGraph();
     }
 }

@@ -11,7 +11,7 @@ namespace Model
         /// Labels are needed to reduce the number of iterations of different vertex 
         /// assignments by dividing the set of all vertices into different groups.
         /// </summary>
-        private int myGraphVertexCount;
+        private int myGraphVerticesCount;
         private int[,] myGraphMatrix;
         private List<string> myGraphVertexLabel = new List<string>();
 
@@ -20,16 +20,16 @@ namespace Model
         /// </summary>
         public Graph(int theGraphVertexCount, int[,] theGraphMatrix)
         {
-            myGraphVertexCount = theGraphVertexCount;
+            myGraphVerticesCount = theGraphVertexCount;
             myGraphMatrix = theGraphMatrix;
         }
 
         /// <summary>
         /// Get graph vertex count.
         /// </summary>
-        public int getGraphVertexCount()
+        public int getGraphVerticesCount()
         {
-            return myGraphVertexCount;
+            return myGraphVerticesCount;
         }
 
         /// <summary>
@@ -68,19 +68,19 @@ namespace Model
         {
             List<int> aVertexNeighbors = new List<int>();
             List<int> anArrayToSortDegrees = new List<int>();
-            for (int i = 0; i < myGraphVertexCount; i++)
+            for (int i = 0; i < myGraphVerticesCount; i++)
             {
                 if (theLabelLevel == 0)
                 {
                     int aNeighborsCount = 0;
                     myGraphVertexLabel.Add("");
-                    for (int k = 0; k < myGraphVertexCount; k++)
+                    for (int k = 0; k < myGraphVerticesCount; k++)
                         if (myGraphMatrix[i, k] == 1) aNeighborsCount++;
                     myGraphVertexLabel[i] = myGraphVertexLabel[i] + aNeighborsCount.ToString() + ' ';
                 }
                 else
                 {
-                    for (int k = 0; k < myGraphVertexCount; k++)
+                    for (int k = 0; k < myGraphVerticesCount; k++)
                         if (myGraphMatrix[i, k] == 1) aVertexNeighbors.Add(k);
                     for (int j = 0; j < theLabelLevel; j++)
                     {
@@ -88,7 +88,7 @@ namespace Model
                         for (int k = 0; k < aVertexNeighbors.Count; k++)
                         {
                             int aNeighborsCount = 0;
-                            for (int m = 0; m < myGraphVertexCount; m++)
+                            for (int m = 0; m < myGraphVerticesCount; m++)
                             {
                                 if (myGraphMatrix[aVertexNeighbors[k], m] == 1)
                                 {
