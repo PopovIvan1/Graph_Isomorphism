@@ -41,9 +41,14 @@ namespace ViewInfrastructure
         void DrawGraphVertex(int theGraphNumber, float x, float y, float width, float height, string theContent, string theColor);
 
         /// <summary>
-        /// Clear the view.
+        /// Clear information about first graph.
         /// </summary>
-        void ViewClear();
+        void ViewClearFirstGraph();
+
+        /// <summary>
+        /// Clear information about second graph.
+        /// </summary>
+        void ViewClearSecondGraph();
 
         /// <summary>
         /// Upload text file.

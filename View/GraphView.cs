@@ -98,18 +98,29 @@ namespace View
         }
 
         /// <summary>
-        /// Clear the view.
+        /// Clear information about first graph.
         /// </summary>
-        public void ViewClear()
+        public void ViewClearFirstGraph()
         {
             myFirstGraphLabelTextBox.Clear();
-            mySecondGraphLabelTextBox.Clear();
             myTimeLabel.Text = "Time: ";
             myAnswerLabel.Text = "Answer: ";
             myAnswerTextBox.Clear();
             myFirstGraphPictureBox.Image = null;
+        }
+
+        /// <summary>
+        /// Clear information about second graph.
+        /// </summary>
+        public void ViewClearSecondGraph()
+        {
+            mySecondGraphLabelTextBox.Clear();
+            myTimeLabel.Text = "Time: ";
+            myAnswerLabel.Text = "Answer: ";
+            myAnswerTextBox.Clear();
             mySecondGraphPictureBox.Image = null;
         }
+
         private void uploadFirstGraph(object sender, EventArgs e)
         {
             UploadFirstGraph?.Invoke();

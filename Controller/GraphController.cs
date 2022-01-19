@@ -35,7 +35,8 @@ namespace Controller
         /// </summary>
         public void UploadFirstGraph()
         {
-            
+            myGraphView.ViewClearFirstGraph();
+            myGraphModel.UploadGraph(myGraphView.UploadFile(), 0);
         }
 
         /// <summary>
@@ -43,7 +44,8 @@ namespace Controller
         /// </summary>
         public void UploadSecondGraph()
         {
-            
+            myGraphView.ViewClearSecondGraph();
+            myGraphModel.UploadGraph(myGraphView.UploadFile(), 1);
         }
     }
 }
