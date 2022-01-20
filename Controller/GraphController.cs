@@ -1,5 +1,4 @@
-﻿using System;
-using ControllerInfrastructure;
+﻿using ControllerInfrastructure;
 using ViewInfrastructure;
 using ModelInfrastructure;
 
@@ -37,6 +36,7 @@ namespace Controller
         {
             myGraphView.ViewClearFirstGraph();
             myGraphModel.UploadGraph(myGraphView.UploadFile(), 0);
+            drawGraph(myGraphModel.GetGraph(0), 0);
         }
 
         /// <summary>
@@ -46,6 +46,30 @@ namespace Controller
         {
             myGraphView.ViewClearSecondGraph();
             myGraphModel.UploadGraph(myGraphView.UploadFile(), 1);
+            drawGraph(myGraphModel.GetGraph(1), 1);
+        }
+
+        private void drawGraph(IGraph theGraph, int theGraphNumber, string[] theGraphVertexColor = null)
+        {
+            if (theGraph.getGraphVerticesCount() > 19) return;
+            int aGraphVerticesCount = theGraph.getGraphVerticesCount();
+            int[,] aGraphMatrix = theGraph.getGraphMatrix();
+            float[,] aGraphVertexCoordinates = theGraph.getVertexCoordinates();
+            if (theGraphVertexColor == null)
+            {
+                theGraphVertexColor = new string[aGraphVerticesCount];
+                for (int i = 0; i < aGraphVerticesCount; i++)
+                    theGraphVertexColor[i] = "White";
+            }
+            for (int i = 0; i < aGraphVerticesCount; i++)
+                for (int j = 0; j < aGraphVerticesCount; j++)
+                    if (aGraphMatrix[i, j] == 1) myGraphView.DrawGraphEdge(theGraphNumber, aGraphVertexCoordinates[i, 0] + 10, aGraphVertexCoordinates[j, 0] + 10, aGraphVertexCoordinates[i, 1] + 10, aGraphVertexCoordinates[j, 1] + 10);
+            for (int i = 0; i < aGraphVerticesCount; i++)
+            { 
+                if (i < 9) myGraphView.DrawGraphVertex(theGraphNumber, aGraphVertexCoordinates[i, 0], aGraphVertexCoordinates[i, 1], 20, 20, (i + 1).ToString(), theGraphVertexColor[i]);
+                else myGraphView.DrawGraphVertex(theGraphNumber, aGraphVertexCoordinates[i, 0], aGraphVertexCoordinates[i, 1], 20, 20, (i + 1).ToString(), theGraphVertexColor[i], 0);
+
+            }
         }
     }
 }

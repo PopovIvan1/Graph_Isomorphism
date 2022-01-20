@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using ModelInfrastructure;
+using System;
+using System.Collections.Generic;
 
 namespace Model
 {
-    class Graph
+    public class Graph : IGraph
     {
         /// <summary>
         /// myGraphVertexCount - number of vertices in a graph.
@@ -10,18 +12,21 @@ namespace Model
         /// myGraphVertexLabel - list of labels for each graph vertex.
         /// Labels are needed to reduce the number of iterations of different vertex 
         /// assignments by dividing the set of all vertices into different groups.
+        /// myVertexCoordinates - vertex coordinates on the plane.
         /// </summary>
         private int myGraphVerticesCount;
         private int[,] myGraphMatrix;
         private List<string> myGraphVertexLabel = new List<string>();
+        private float[,] myVertexCoordinates;
 
         /// <summary>
         /// Instantiating the graph class.
         /// </summary>
-        public Graph(int theGraphVertexCount, int[,] theGraphMatrix)
+        public Graph(int theGraphVerticesCount, int[,] theGraphMatrix)
         {
-            myGraphVerticesCount = theGraphVertexCount;
+            myGraphVerticesCount = theGraphVerticesCount;
             myGraphMatrix = theGraphMatrix;
+            setVertexCoordinates();
         }
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace Model
         /// <summary>
         /// Clear graph vertex label.
         /// </summary>
-        public void clearGraphVertexLebel()
+        public void ClearGraphVertexLebel()
         {
             myGraphVertexLabel.Clear();
         }
@@ -54,6 +59,14 @@ namespace Model
         public int[,] getGraphMatrix()
         {
             return myGraphMatrix;
+        }
+
+        /// <summary>
+        /// Get graph vertex coordinates.
+        /// </summary>
+        public float[,] getVertexCoordinates()
+        {
+            return myVertexCoordinates;
         }
 
         /// <summary>
@@ -110,6 +123,22 @@ namespace Model
                     anArrayToSortDegrees.Clear();
                 }
                 myGraphVertexLabel[i] = myGraphVertexLabel[i] + ' ';
+            }
+        }
+
+        private void setVertexCoordinates()
+        {
+            myVertexCoordinates = new float[myGraphVerticesCount, 2];
+            int R = 60;
+            if (myGraphVerticesCount * 10 > R) R = myGraphVerticesCount * 10;
+            if (R > 120) R = 120;
+            double anAngle = 360.0 / myGraphVerticesCount;
+            double aDeltaAngle = 0;
+            for (int i = 0; i < myGraphVerticesCount; i++)
+            {
+                myVertexCoordinates[i, 0] = (float)Math.Round(Math.Cos(aDeltaAngle / 180 * Math.PI) * R) + 150;
+                myVertexCoordinates[i, 1] = (-1) * (float)Math.Round(Math.Sin(aDeltaAngle / 180 * Math.PI) * R) + 150;
+                aDeltaAngle = aDeltaAngle + anAngle;
             }
         }
     }

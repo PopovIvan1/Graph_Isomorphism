@@ -10,6 +10,7 @@ namespace ViewInfrastructure
         Action UploadFirstGraph { get; set; }
         Action UploadSecondGraph { get; set; }
         Action GetAnswer { get; set; }
+        
         /// <summary>
         /// Display the running time of the algorithm.
         /// </summary>
@@ -26,11 +27,6 @@ namespace ViewInfrastructure
         void DisplayGraphIsomorphism(string[] theIsomorphism);
 
         /// <summary>
-        /// Display graph label.
-        /// </summary>
-        void DisplayGraphLabel(int theGraphNumber, string[] theLabel);
-
-        /// <summary>
         /// Display graph edge.
         /// </summary>
         void DrawGraphEdge(int theGraphNumber, float x1, float x2, float y1, float y2);
@@ -38,7 +34,7 @@ namespace ViewInfrastructure
         /// <summary>
         /// Display graph vertex.
         /// </summary>
-        void DrawGraphVertex(int theGraphNumber, float x, float y, float width, float height, string theContent, string theColor);
+        void DrawGraphVertex(int theGraphNumber, float x, float y, float width, float height, string theContent, string theColor, int theDeltaX = 3);
 
         /// <summary>
         /// Clear information about first graph.

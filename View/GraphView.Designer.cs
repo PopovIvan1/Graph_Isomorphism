@@ -30,10 +30,6 @@
         {
             this.myFirstGraphPictureBox = new System.Windows.Forms.PictureBox();
             this.mySecondGraphPictureBox = new System.Windows.Forms.PictureBox();
-            this.myFirstGraphLabel = new System.Windows.Forms.Label();
-            this.mySecondGraphLabel = new System.Windows.Forms.Label();
-            this.myFirstGraphLabelTextBox = new System.Windows.Forms.RichTextBox();
-            this.mySecondGraphLabelTextBox = new System.Windows.Forms.RichTextBox();
             this.myAnswerTextBox = new System.Windows.Forms.RichTextBox();
             this.myFirstGraphBotton = new System.Windows.Forms.Button();
             this.mySecondGraphBotton = new System.Windows.Forms.Button();
@@ -49,55 +45,21 @@
             // 
             this.myFirstGraphPictureBox.Location = new System.Drawing.Point(0, 0);
             this.myFirstGraphPictureBox.Name = "myFirstGraphPictureBox";
-            this.myFirstGraphPictureBox.Size = new System.Drawing.Size(293, 275);
+            this.myFirstGraphPictureBox.Size = new System.Drawing.Size(400, 400);
             this.myFirstGraphPictureBox.TabIndex = 0;
             this.myFirstGraphPictureBox.TabStop = false;
             // 
             // mySecondGraphPictureBox
             // 
-            this.mySecondGraphPictureBox.Location = new System.Drawing.Point(711, 0);
+            this.mySecondGraphPictureBox.Location = new System.Drawing.Point(440, 0);
             this.mySecondGraphPictureBox.Name = "mySecondGraphPictureBox";
-            this.mySecondGraphPictureBox.Size = new System.Drawing.Size(293, 275);
+            this.mySecondGraphPictureBox.Size = new System.Drawing.Size(400, 400);
             this.mySecondGraphPictureBox.TabIndex = 1;
             this.mySecondGraphPictureBox.TabStop = false;
             // 
-            // myFirstGraphLabel
-            // 
-            this.myFirstGraphLabel.AutoSize = true;
-            this.myFirstGraphLabel.Location = new System.Drawing.Point(299, 9);
-            this.myFirstGraphLabel.Name = "myFirstGraphLabel";
-            this.myFirstGraphLabel.Size = new System.Drawing.Size(43, 17);
-            this.myFirstGraphLabel.TabIndex = 2;
-            this.myFirstGraphLabel.Text = "Label";
-            // 
-            // mySecondGraphLabel
-            // 
-            this.mySecondGraphLabel.AutoSize = true;
-            this.mySecondGraphLabel.Location = new System.Drawing.Point(1010, 9);
-            this.mySecondGraphLabel.Name = "mySecondGraphLabel";
-            this.mySecondGraphLabel.Size = new System.Drawing.Size(43, 17);
-            this.mySecondGraphLabel.TabIndex = 3;
-            this.mySecondGraphLabel.Text = "Label";
-            // 
-            // myFirstGraphLabelTextBox
-            // 
-            this.myFirstGraphLabelTextBox.Location = new System.Drawing.Point(302, 29);
-            this.myFirstGraphLabelTextBox.Name = "myFirstGraphLabelTextBox";
-            this.myFirstGraphLabelTextBox.Size = new System.Drawing.Size(114, 246);
-            this.myFirstGraphLabelTextBox.TabIndex = 5;
-            this.myFirstGraphLabelTextBox.Text = "";
-            // 
-            // mySecondGraphLabelTextBox
-            // 
-            this.mySecondGraphLabelTextBox.Location = new System.Drawing.Point(1013, 29);
-            this.mySecondGraphLabelTextBox.Name = "mySecondGraphLabelTextBox";
-            this.mySecondGraphLabelTextBox.Size = new System.Drawing.Size(114, 246);
-            this.mySecondGraphLabelTextBox.TabIndex = 6;
-            this.mySecondGraphLabelTextBox.Text = "";
-            // 
             // myAnswerTextBox
             // 
-            this.myAnswerTextBox.Location = new System.Drawing.Point(1149, 344);
+            this.myAnswerTextBox.Location = new System.Drawing.Point(1113, 66);
             this.myAnswerTextBox.Name = "myAnswerTextBox";
             this.myAnswerTextBox.Size = new System.Drawing.Size(97, 94);
             this.myAnswerTextBox.TabIndex = 17;
@@ -105,7 +67,7 @@
             // 
             // myFirstGraphBotton
             // 
-            this.myFirstGraphBotton.Location = new System.Drawing.Point(181, 281);
+            this.myFirstGraphBotton.Location = new System.Drawing.Point(859, 12);
             this.myFirstGraphBotton.Name = "myFirstGraphBotton";
             this.myFirstGraphBotton.Size = new System.Drawing.Size(112, 51);
             this.myFirstGraphBotton.TabIndex = 18;
@@ -114,7 +76,7 @@
             // 
             // mySecondGraphBotton
             // 
-            this.mySecondGraphBotton.Location = new System.Drawing.Point(892, 281);
+            this.mySecondGraphBotton.Location = new System.Drawing.Point(859, 78);
             this.mySecondGraphBotton.Name = "mySecondGraphBotton";
             this.mySecondGraphBotton.Size = new System.Drawing.Size(112, 51);
             this.mySecondGraphBotton.TabIndex = 19;
@@ -123,7 +85,7 @@
             // 
             // myAnswerBotton
             // 
-            this.myAnswerBotton.Location = new System.Drawing.Point(892, 344);
+            this.myAnswerBotton.Location = new System.Drawing.Point(859, 152);
             this.myAnswerBotton.Name = "myAnswerBotton";
             this.myAnswerBotton.Size = new System.Drawing.Size(112, 51);
             this.myAnswerBotton.TabIndex = 20;
@@ -133,7 +95,7 @@
             // myAnswerLabel
             // 
             this.myAnswerLabel.AutoSize = true;
-            this.myAnswerLabel.Location = new System.Drawing.Point(1089, 326);
+            this.myAnswerLabel.Location = new System.Drawing.Point(1056, 46);
             this.myAnswerLabel.Name = "myAnswerLabel";
             this.myAnswerLabel.Size = new System.Drawing.Size(58, 17);
             this.myAnswerLabel.TabIndex = 21;
@@ -142,7 +104,7 @@
             // myIsomorphismLabel
             // 
             this.myIsomorphismLabel.AutoSize = true;
-            this.myIsomorphismLabel.Location = new System.Drawing.Point(1056, 347);
+            this.myIsomorphismLabel.Location = new System.Drawing.Point(1016, 69);
             this.myIsomorphismLabel.Name = "myIsomorphismLabel";
             this.myIsomorphismLabel.Size = new System.Drawing.Size(91, 17);
             this.myIsomorphismLabel.TabIndex = 22;
@@ -151,7 +113,7 @@
             // myTimeLabel
             // 
             this.myTimeLabel.AutoSize = true;
-            this.myTimeLabel.Location = new System.Drawing.Point(512, 378);
+            this.myTimeLabel.Location = new System.Drawing.Point(1016, 229);
             this.myTimeLabel.Name = "myTimeLabel";
             this.myTimeLabel.Size = new System.Drawing.Size(43, 17);
             this.myTimeLabel.TabIndex = 23;
@@ -169,10 +131,6 @@
             this.Controls.Add(this.mySecondGraphBotton);
             this.Controls.Add(this.myFirstGraphBotton);
             this.Controls.Add(this.myAnswerTextBox);
-            this.Controls.Add(this.mySecondGraphLabelTextBox);
-            this.Controls.Add(this.myFirstGraphLabelTextBox);
-            this.Controls.Add(this.mySecondGraphLabel);
-            this.Controls.Add(this.myFirstGraphLabel);
             this.Controls.Add(this.mySecondGraphPictureBox);
             this.Controls.Add(this.myFirstGraphPictureBox);
             this.Name = "GraphView";
@@ -187,10 +145,6 @@
 
         private System.Windows.Forms.PictureBox myFirstGraphPictureBox;
         private System.Windows.Forms.PictureBox mySecondGraphPictureBox;
-        private System.Windows.Forms.Label myFirstGraphLabel;
-        private System.Windows.Forms.Label mySecondGraphLabel;
-        private System.Windows.Forms.RichTextBox myFirstGraphLabelTextBox;
-        private System.Windows.Forms.RichTextBox mySecondGraphLabelTextBox;
         private System.Windows.Forms.RichTextBox myAnswerTextBox;
         private System.Windows.Forms.Button myFirstGraphBotton;
         private System.Windows.Forms.Button mySecondGraphBotton;

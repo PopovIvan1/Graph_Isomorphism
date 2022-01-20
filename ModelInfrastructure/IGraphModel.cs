@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ModelInfrastructure
+﻿namespace ModelInfrastructure
 {
     public interface IGraphModel
     {
@@ -29,5 +27,9 @@ namespace ModelInfrastructure
         /// </summary>
         void UploadGraph(string theFileName, int theGraphNumber);
 
+        /// <summary>
+        /// Get first or second graph.
+        /// </summary>
+        IGraph GetGraph(int theGraphNumber);
     }
 }

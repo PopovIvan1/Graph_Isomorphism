@@ -11,6 +11,9 @@ namespace View
         public Action UploadSecondGraph { get; set; }
         public  Action GetAnswer { get; set; }
 
+        private Graphics aFirstGraphics;
+        private Graphics aSecondGraphics;
+
         /// <summary>
         /// Instantiating the view class.
         /// </summary>
@@ -20,6 +23,8 @@ namespace View
             myFirstGraphBotton.Click += uploadFirstGraph;
             mySecondGraphBotton.Click += uploadSecondGraph;
             myAnswerBotton.Click += getAnswer;
+            aFirstGraphics = myFirstGraphPictureBox.CreateGraphics();
+            aSecondGraphics = mySecondGraphPictureBox.CreateGraphics();
         }
 
         /// <summary>
@@ -47,54 +52,37 @@ namespace View
         }
 
         /// <summary>
-        /// Display graph label.
-        /// </summary>
-        public void DisplayGraphLabel(int theGraphNumber, string[] theLabel)
-        {
-            if (theGraphNumber == 0) for (int i = 0; i < theLabel.Length; i++) myFirstGraphLabelTextBox.Text = myFirstGraphLabelTextBox.Text + theLabel[i] + '\n';
-            else for (int i = 0; i < theLabel.Length; i++) mySecondGraphLabelTextBox.Text = mySecondGraphLabelTextBox.Text + theLabel[i] + '\n';
-        }
-
-        /// <summary>
         /// Display graph edge.
         /// </summary>
         public void DrawGraphEdge(int theGraphNumber, float x1, float x2, float y1, float y2)
         {
-            Bitmap aBitmap;
             if (theGraphNumber == 0)
             {
-                aBitmap = new Bitmap(myFirstGraphPictureBox.Width, myFirstGraphPictureBox.Height);
-                myFirstGraphPictureBox.Image = aBitmap;
+                aFirstGraphics.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
             }
             else
             {
-                aBitmap = new Bitmap(mySecondGraphPictureBox.Width, mySecondGraphPictureBox.Height);
-                mySecondGraphPictureBox.Image = aBitmap;
+                aSecondGraphics.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
             }
-            Graphics aGraphics = Graphics.FromImage(aBitmap);
-            aGraphics.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
         }
 
         /// <summary>
         /// Display graph vertex.
         /// </summary>
-        public void DrawGraphVertex(int theGraphNumber, float x, float y, float width, float height, string theContent, string theColor)
+        public void DrawGraphVertex(int theGraphNumber, float x, float y, float width, float height, string theContent, string theColor, int theDeltaX = 3)
         {
-            Bitmap aBitmap;
             if (theGraphNumber == 0)
             {
-                aBitmap = new Bitmap(myFirstGraphPictureBox.Width, myFirstGraphPictureBox.Height);
-                myFirstGraphPictureBox.Image = aBitmap;
+                aFirstGraphics.FillEllipse(new SolidBrush(Color.FromName(theColor)), x, y, width, height);
+                aFirstGraphics.DrawString(theContent, new Font("Arial", 11), new SolidBrush(Color.Black), x + theDeltaX, y + 3);
+                aFirstGraphics.DrawEllipse(new Pen(Color.Black), x, y, width, height);
             }
             else
             {
-                aBitmap = new Bitmap(mySecondGraphPictureBox.Width, mySecondGraphPictureBox.Height);
-                mySecondGraphPictureBox.Image = aBitmap;
+                aSecondGraphics.FillEllipse(new SolidBrush(Color.FromName(theColor)), x, y, width, height);
+                aSecondGraphics.DrawString(theContent, new Font("Arial", 11), new SolidBrush(Color.Black), x + theDeltaX, y + 3);
+                aSecondGraphics.DrawEllipse(new Pen(Color.Black), x, y, width, height);
             }
-            Graphics aGraphics = Graphics.FromImage(aBitmap);
-            aGraphics.DrawEllipse(new Pen(Color.Black), x, y, width, height);
-            aGraphics.FillEllipse(new SolidBrush(Color.FromName(theColor)), x, y, width, height);
-            aGraphics.DrawString(theContent, new Font("Arial", 11), new SolidBrush(Color.Black), x + 3, y + 3);
         }
 
         /// <summary>
@@ -102,7 +90,6 @@ namespace View
         /// </summary>
         public void ViewClearFirstGraph()
         {
-            myFirstGraphLabelTextBox.Clear();
             myTimeLabel.Text = "Time: ";
             myAnswerLabel.Text = "Answer: ";
             myAnswerTextBox.Clear();
@@ -114,7 +101,6 @@ namespace View
         /// </summary>
         public void ViewClearSecondGraph()
         {
-            mySecondGraphLabelTextBox.Clear();
             myTimeLabel.Text = "Time: ";
             myAnswerLabel.Text = "Answer: ";
             myAnswerTextBox.Clear();
