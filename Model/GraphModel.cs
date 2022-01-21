@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using ModelInfrastructure;
@@ -9,6 +10,9 @@ namespace Model
     {
         private Graph myFirstGraph = new Graph(0, new[,] { { 0, 0 } });
         private Graph mySecondGraph = new Graph(0, new[,] { { 0, 0 } });
+        private string myAlgoritmTime = "";
+        private string myAlgoritmAnswer = "";
+        private string[] myGraphIsomorphism = null;
 
         /// <summary>
         /// Upload graph from file.
@@ -69,7 +73,7 @@ namespace Model
         {
             myFirstGraph.ClearGraphVertexLebel();
             mySecondGraph.ClearGraphVertexLebel();
-            return "";
+            return myAlgoritmAnswer;
         }
 
         /// <summary>
@@ -77,7 +81,7 @@ namespace Model
         /// </summary>
         public string[] GetIsomorphism()
         {
-            return null;
+            return myGraphIsomorphism;
         }
 
         /// <summary>
@@ -85,7 +89,7 @@ namespace Model
         /// </summary>
         public string GetTime()
         {
-            return "";
+            return myAlgoritmTime;
         }
 
         /// <summary>
@@ -93,7 +97,14 @@ namespace Model
         /// </summary>
         public void StartAlgoritm()
         {
-
+            Stopwatch time = new Stopwatch();
+            time.Start();
+            if (myFirstGraph.getGraphVerticesCount() != mySecondGraph.getGraphVerticesCount())
+            {
+                myAlgoritmTime = time.Elapsed.ToString();
+                myAlgoritmAnswer = "No";
+                return;
+            }
         }
 
         /// <summary>
@@ -103,6 +114,43 @@ namespace Model
         {
             if (theGraphNumber == 0) return myFirstGraph;
             else return mySecondGraph;
+        }
+
+        /// <summary>
+        /// The input of the function is assigment. For example assigment [1 3 2 0] means 0->1, 1->3, 2->2, 3->0.
+        /// That is, the vertex with number 0 is assigned to the vertex with number 1, and so on.
+        /// For each vertex and its pair, lists of neighbors are compiled and compared.
+        /// </summary>
+        private bool checkAssignment(int[] theAssigment)
+        {
+            int[,] aFirstGraphMatrix = myFirstGraph.getGraphMatrix();
+            int[,] aSecondGraphMatrix = mySecondGraph.getGraphMatrix();
+            int aVertexNumber;
+            int isAssigmetTrue;
+            for (int i = 0; i < myFirstGraph.getGraphVerticesCount(); i++)
+            {
+                isAssigmetTrue = 0;
+                List<int> aFirstVertexNeighbors = new List<int>(), aSecondVertexNeighbors = new List<int>();
+                aVertexNumber = -1;
+                for (int k = 0; k < myFirstGraph.getGraphVerticesCount(); k++)
+                {
+                    if (aFirstGraphMatrix[i, k] == 1) aFirstVertexNeighbors.Add(k);
+                    if (theAssigment[k] == i) aVertexNumber = k;
+                }
+                for (int k = 0; k < myFirstGraph.getGraphVerticesCount(); k++)
+                {
+                    if (aSecondGraphMatrix[aVertexNumber, k] == 1) aSecondVertexNeighbors.Add(theAssigment[k]);
+                }
+                for (int k = 0; k < aFirstVertexNeighbors.Count; k++)
+                {
+                    isAssigmetTrue = 1;
+                    for (int m = 0; m < aSecondVertexNeighbors.Count; m++)
+                        if (aFirstVertexNeighbors[k] == aSecondVertexNeighbors[m]) isAssigmetTrue = 0;
+                    if (isAssigmetTrue == 1) break;
+                }
+                if (isAssigmetTrue == 1) return false;
+            }
+            return true;
         }
     }
 }

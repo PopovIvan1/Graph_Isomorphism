@@ -26,7 +26,14 @@ namespace Controller
         /// </summary>
         public void GetAnswer()
         {
-            
+            myGraphModel.StartAlgoritm();
+            if (myGraphModel.GetAnswer() != "No")
+            {
+
+                myGraphView.DisplayGraphIsomorphism(myGraphModel.GetIsomorphism());
+            }
+            myGraphView.DisplayAlgorithmAnswer(myGraphModel.GetAnswer());
+            myGraphView.DisplayAlgorithmTime(myGraphModel.GetTime());
         }
 
         /// <summary>
