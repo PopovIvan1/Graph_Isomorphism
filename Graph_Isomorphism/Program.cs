@@ -6,6 +6,9 @@ using Model;
 
 namespace Graph_Isomorphism
 {
+    /// <summary>
+    /// Program entry point.
+    /// </summary>
     static class Program
     {
         [STAThread]

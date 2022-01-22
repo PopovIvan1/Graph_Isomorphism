@@ -1,18 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using ModelInfrastructure;
 
 namespace Model
 {
+    /// <summary>
+    /// Class model - one of the three components of the MVC pattern.
+    /// Designed to work with data.
+    /// </summary>
     public class GraphModel : IGraphModel
     {
         private Graph myFirstGraph = new Graph(0, new[,] { { 0, 0 } });
         private Graph mySecondGraph = new Graph(0, new[,] { { 0, 0 } });
         private string myAlgoritmTime = "";
         private string myAlgoritmAnswer = "";
-        private string[] myGraphIsomorphism = null;
+        private int[] myGraphIsomorphism;
+        private List<int>[] mySimilarVertexFromSecondGraph;
 
         /// <summary>
         /// Upload graph from file.
@@ -79,7 +85,7 @@ namespace Model
         /// <summary>
         /// Get graph isomorphism.
         /// </summary>
-        public string[] GetIsomorphism()
+        public int[] GetIsomorphism()
         {
             return myGraphIsomorphism;
         }
@@ -97,6 +103,7 @@ namespace Model
         /// </summary>
         public void StartAlgoritm()
         {
+            myGraphIsomorphism = null;
             Stopwatch time = new Stopwatch();
             time.Start();
             if (myFirstGraph.getGraphVerticesCount() != mySecondGraph.getGraphVerticesCount())
@@ -151,6 +158,38 @@ namespace Model
                 if (isAssigmetTrue == 1) return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Recursive function to form assignments and send them for review.
+        /// The function input is the current generated assignment and the index of the next viewed vertex.
+        /// As soon as the current path contains all the vertices, the destination will go to check.
+        /// </summary>
+        private void formationAssignment(int[] theCurrentPath, int theNextVertexIndex)
+        {
+            if (myGraphIsomorphism != null) return;
+            if (theNextVertexIndex > myFirstGraph.getGraphVerticesCount() - 1)
+            {
+                if (checkAssignment(theCurrentPath))
+                {
+                    myGraphIsomorphism = theCurrentPath;
+                }
+                return;
+            }
+            for (int i = 0; i < mySimilarVertexFromSecondGraph[theNextVertexIndex].Count(); i++)
+            {
+                int isVertexInCurrentPath = 0;
+                for (int j = 0; j < theCurrentPath.Length; j++)
+                    if (theCurrentPath[j] == mySimilarVertexFromSecondGraph[theNextVertexIndex][i]) isVertexInCurrentPath = 1;
+                if (isVertexInCurrentPath == 0)
+                {
+                    int[] aNextCurrentPath = new int[theCurrentPath.Length + 1];
+                    for (int m = 0; m < theCurrentPath.Length; m++)
+                        aNextCurrentPath[m] = theCurrentPath[m];
+                    aNextCurrentPath[theCurrentPath.Length] = mySimilarVertexFromSecondGraph[theNextVertexIndex][i];
+                    formationAssignment(aNextCurrentPath, theNextVertexIndex + 1);
+                }
+            }
         }
     }
 }

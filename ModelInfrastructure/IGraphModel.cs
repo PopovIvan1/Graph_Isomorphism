@@ -1,5 +1,8 @@
 ﻿namespace ModelInfrastructure
 {
+    /// <summary>
+    /// Model interface.
+    /// </summary>
     public interface IGraphModel
     {
         /// <summary>
@@ -15,7 +18,7 @@
         /// <summary>
         /// Get graph isomorphism.
         /// </summary>
-        string[] GetIsomorphism();
+        int[] GetIsomorphism();
 
         /// <summary>
         /// Start alroritm.

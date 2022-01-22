@@ -2,6 +2,9 @@
 
 namespace ModelInfrastructure
 {
+    /// <summary>
+    /// Graph interface.
+    /// </summary>
     public interface IGraph
     {
         /// <summary>

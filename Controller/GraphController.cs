@@ -4,6 +4,10 @@ using ModelInfrastructure;
 
 namespace Controller
 {
+    /// <summary>
+    /// Class controller - one of the three components of the MVC pattern.
+    /// Designed for communication between the model and the view.
+    /// </summary>
     public class GraphController : IGraphController
     {
         private IGraphModel myGraphModel;
@@ -29,9 +33,14 @@ namespace Controller
             myGraphModel.StartAlgoritm();
             if (myGraphModel.GetAnswer() != "No")
             {
-
-                myGraphView.DisplayGraphIsomorphism(myGraphModel.GetIsomorphism());
+                int[] anIsomorphism = myGraphModel.GetIsomorphism();
+                string[] anIsomorphismToString = new string[anIsomorphism.Length];
+                for (int i = 0; i < anIsomorphism.Length; i++)
+                    anIsomorphismToString[i] = $"{i + 1} -> {anIsomorphism[i]}";
+                myGraphView.DisplayGraphIsomorphism(anIsomorphismToString);
             }
+            else 
+                myGraphView.DisplayGraphIsomorphism(new[] { "No" });
             myGraphView.DisplayAlgorithmAnswer(myGraphModel.GetAnswer());
             myGraphView.DisplayAlgorithmTime(myGraphModel.GetTime());
         }

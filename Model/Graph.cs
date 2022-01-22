@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    /// <summary>
+    /// Graph class - data representation for which the algorithm will be applied.
+    /// </summary>
     public class Graph : IGraph
     {
         /// <summary>

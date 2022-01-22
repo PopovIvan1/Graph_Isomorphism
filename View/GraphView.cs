@@ -5,6 +5,10 @@ using ViewInfrastructure;
 
 namespace View
 {
+    /// <summary>
+    /// Class view - one of the three components of the MVC pattern.
+    /// Designed to display data.
+    /// </summary>
     public partial class GraphView : Form, IGraphView
     {
         public Action UploadFirstGraph { get; set; }
