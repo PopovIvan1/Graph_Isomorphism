@@ -10,7 +10,7 @@ namespace ModelInfrastructure
         /// <summary>
         /// Get graph vertex count.
         /// </summary>
-        int getGraphVerticesCount();
+        int GetGraphVerticesCount();
 
         /// <summary>
         /// Clear graph vertex label.
@@ -20,17 +20,17 @@ namespace ModelInfrastructure
         /// <summary>
         /// Get graph vertex label.
         /// </summary>
-        List<string> getGraphVertexLabel();
+        List<string> GetGraphVertexLabel();
 
         /// <summary>
         /// Get graph adjacency matrix.
         /// </summary>
-        int[,] getGraphMatrix();
+        int[,] GetGraphMatrix();
 
         /// <summary>
         /// Get graph vertex coordinates.
         /// </summary>
-        float[,] getVertexCoordinates();
+        float[,] GetVertexCoordinates();
 
         /// <summary>
         /// Сounting labels for vertices with a level theLabelLevel.

@@ -16,7 +16,7 @@ namespace Model
         private Graph myFirstGraph = new Graph(0, new[,] { { 0, 0 } });
         private Graph mySecondGraph = new Graph(0, new[,] { { 0, 0 } });
         private string myAlgoritmTime = "";
-        private string myAlgoritmAnswer = "";
+        private string myAlgoritmAnswer = "No";
         private int[] myGraphIsomorphism;
         private List<int>[] mySimilarVertexFromSecondGraph;
 
@@ -106,11 +106,98 @@ namespace Model
             myGraphIsomorphism = null;
             Stopwatch time = new Stopwatch();
             time.Start();
-            if (myFirstGraph.getGraphVerticesCount() != mySecondGraph.getGraphVerticesCount())
+            if (myFirstGraph.GetGraphVerticesCount() != mySecondGraph.GetGraphVerticesCount())
             {
                 myAlgoritmTime = time.Elapsed.ToString();
                 myAlgoritmAnswer = "No";
                 return;
+            }
+            int anEquivalenceClassesCount = 0;
+            int anOldEquivalenceClassesCount = -1;
+            int aLabelLevel = 0;
+            int[] aCurrentAssignment = new int[myFirstGraph.GetGraphVerticesCount()];
+            int[] isVertexInAssignment = new int[myFirstGraph.GetGraphVerticesCount()];
+            int[,] anEquivalenceClasses = new int[myFirstGraph.GetGraphVerticesCount(), 2];
+            while (anEquivalenceClassesCount != anOldEquivalenceClassesCount)
+            {
+                for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
+                {
+                    anEquivalenceClasses[i, 0] = -1;
+                    anEquivalenceClasses[i, 1] = -1;
+                    aCurrentAssignment[i] = -1;
+                    isVertexInAssignment[i] = -1;
+                }
+                myFirstGraph.SetGraphVertexLabel(aLabelLevel);
+                mySecondGraph.SetGraphVertexLabel(aLabelLevel);
+                aLabelLevel++;
+                List<string> aFirstGraphLabel = myFirstGraph.GetGraphVertexLabel();
+                List<string> aSecondGraphLabel = mySecondGraph.GetGraphVertexLabel();
+                for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
+                    for (int j = 0; j < myFirstGraph.GetGraphVerticesCount(); j++)
+                    {
+                        if (aFirstGraphLabel[i] == aSecondGraphLabel[j])
+                        {
+                            if (anEquivalenceClasses[j, 1] == -1)
+                            {
+                                anEquivalenceClasses[i, 0] = i;
+                                anEquivalenceClasses[j, 1] = i;
+                            }
+                            else anEquivalenceClasses[i, 0] = anEquivalenceClasses[j, 1];
+                            if (aCurrentAssignment[i] == -1 && isVertexInAssignment[j] == -1)
+                            {
+                                aCurrentAssignment[i] = j;
+                                isVertexInAssignment[j] = 0;
+                            }
+                        }
+                    }
+                List<int> aDifferentEquivalenceClasses = new List<int>();
+                for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
+                {
+                    if (aDifferentEquivalenceClasses.Count == 0) aDifferentEquivalenceClasses.Add(anEquivalenceClasses[i, 0]);
+                    else
+                    {
+                        int isClassInList = 0;
+                        for (int j = 0; j < aDifferentEquivalenceClasses.Count; j++)
+                        {
+                            if (aDifferentEquivalenceClasses[j] == anEquivalenceClasses[i, 0]) isClassInList = 1;
+                        }
+                        if (isClassInList == 0) aDifferentEquivalenceClasses.Add(anEquivalenceClasses[i, 0]);
+                    }
+                }
+                anEquivalenceClassesCount = aDifferentEquivalenceClasses.Count;
+                for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
+                {
+                    if (aCurrentAssignment[i] == -1)
+                    {
+                        myAlgoritmTime = time.Elapsed.ToString();
+                        myAlgoritmAnswer = "No";
+                        return;
+                    }
+                }
+                if (anEquivalenceClassesCount == anOldEquivalenceClassesCount)
+                {
+                    mySimilarVertexFromSecondGraph = new List<int>[myFirstGraph.GetGraphVerticesCount()];
+                    for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
+                    {
+                        mySimilarVertexFromSecondGraph[i] = new List<int>();
+                        for (int j = 0; j < myFirstGraph.GetGraphVerticesCount(); j++)
+                            if (anEquivalenceClasses[i, 0] == anEquivalenceClasses[j, 1])
+                                mySimilarVertexFromSecondGraph[i].Add(j);
+                    }
+                    formationAssignment(new int[0], 0);
+                    if (myGraphIsomorphism == null)
+                    {
+                        myAlgoritmAnswer = "No";
+                    }
+                    else
+                    {
+                        myAlgoritmAnswer = "Yes";
+                    }
+                    myAlgoritmTime = time.Elapsed.ToString();
+                    return;
+                }
+                anOldEquivalenceClassesCount = anEquivalenceClassesCount;
+                anEquivalenceClassesCount = -1;
             }
         }
 
@@ -130,29 +217,26 @@ namespace Model
         /// </summary>
         private bool checkAssignment(int[] theAssigment)
         {
-            int[,] aFirstGraphMatrix = myFirstGraph.getGraphMatrix();
-            int[,] aSecondGraphMatrix = mySecondGraph.getGraphMatrix();
-            int aVertexNumber;
+            int[,] aFirstGraphMatrix = myFirstGraph.GetGraphMatrix();
+            int[,] aSecondGraphMatrix = mySecondGraph.GetGraphMatrix();
             int isAssigmetTrue;
-            for (int i = 0; i < myFirstGraph.getGraphVerticesCount(); i++)
+            for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
             {
                 isAssigmetTrue = 0;
                 List<int> aFirstVertexNeighbors = new List<int>(), aSecondVertexNeighbors = new List<int>();
-                aVertexNumber = -1;
-                for (int k = 0; k < myFirstGraph.getGraphVerticesCount(); k++)
+                for (int j = 0; j < myFirstGraph.GetGraphVerticesCount(); j++)
                 {
-                    if (aFirstGraphMatrix[i, k] == 1) aFirstVertexNeighbors.Add(k);
-                    if (theAssigment[k] == i) aVertexNumber = k;
+                    if (aFirstGraphMatrix[i, j] == 1) aFirstVertexNeighbors.Add(theAssigment[j]);
                 }
-                for (int k = 0; k < myFirstGraph.getGraphVerticesCount(); k++)
+                for (int j = 0; j < myFirstGraph.GetGraphVerticesCount(); j++)
                 {
-                    if (aSecondGraphMatrix[aVertexNumber, k] == 1) aSecondVertexNeighbors.Add(theAssigment[k]);
+                    if (aSecondGraphMatrix[theAssigment[i], j] == 1) aSecondVertexNeighbors.Add(j);
                 }
-                for (int k = 0; k < aFirstVertexNeighbors.Count; k++)
+                for (int j = 0; j < aFirstVertexNeighbors.Count; j++)
                 {
                     isAssigmetTrue = 1;
                     for (int m = 0; m < aSecondVertexNeighbors.Count; m++)
-                        if (aFirstVertexNeighbors[k] == aSecondVertexNeighbors[m]) isAssigmetTrue = 0;
+                        if (aFirstVertexNeighbors[j] == aSecondVertexNeighbors[m]) isAssigmetTrue = 0;
                     if (isAssigmetTrue == 1) break;
                 }
                 if (isAssigmetTrue == 1) return false;
@@ -168,7 +252,7 @@ namespace Model
         private void formationAssignment(int[] theCurrentPath, int theNextVertexIndex)
         {
             if (myGraphIsomorphism != null) return;
-            if (theNextVertexIndex > myFirstGraph.getGraphVerticesCount() - 1)
+            if (theNextVertexIndex > myFirstGraph.GetGraphVerticesCount() - 1)
             {
                 if (checkAssignment(theCurrentPath))
                 {

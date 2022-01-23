@@ -29,13 +29,13 @@ namespace Model
         {
             myGraphVerticesCount = theGraphVerticesCount;
             myGraphMatrix = theGraphMatrix;
-            setVertexCoordinates();
+            SetVertexCoordinates();
         }
 
         /// <summary>
         /// Get graph vertex count.
         /// </summary>
-        public int getGraphVerticesCount()
+        public int GetGraphVerticesCount()
         {
             return myGraphVerticesCount;
         }
@@ -51,7 +51,7 @@ namespace Model
         /// <summary>
         /// Get graph vertex label.
         /// </summary>
-        public List<string> getGraphVertexLabel()
+        public List<string> GetGraphVertexLabel()
         {
             return myGraphVertexLabel;
         }
@@ -59,7 +59,7 @@ namespace Model
         /// <summary>
         /// Get graph adjacency matrix.
         /// </summary>
-        public int[,] getGraphMatrix()
+        public int[,] GetGraphMatrix()
         {
             return myGraphMatrix;
         }
@@ -67,7 +67,7 @@ namespace Model
         /// <summary>
         /// Get graph vertex coordinates.
         /// </summary>
-        public float[,] getVertexCoordinates()
+        public float[,] GetVertexCoordinates()
         {
             return myVertexCoordinates;
         }
@@ -96,8 +96,8 @@ namespace Model
                 }
                 else
                 {
-                    for (int k = 0; k < myGraphVerticesCount; k++)
-                        if (myGraphMatrix[i, k] == 1) aVertexNeighbors.Add(k);
+                    for (int j = 0; j < myGraphVerticesCount; j++)
+                        if (myGraphMatrix[i, j] == 1) aVertexNeighbors.Add(j);
                     for (int j = 0; j < theLabelLevel; j++)
                     {
                         List<int> aNextVertexNeighbors = new List<int>();
@@ -129,7 +129,7 @@ namespace Model
             }
         }
 
-        private void setVertexCoordinates()
+        private void SetVertexCoordinates()
         {
             myVertexCoordinates = new float[myGraphVerticesCount, 2];
             int R = 60;

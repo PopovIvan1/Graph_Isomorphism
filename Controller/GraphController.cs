@@ -33,10 +33,11 @@ namespace Controller
             myGraphModel.StartAlgoritm();
             if (myGraphModel.GetAnswer() != "No")
             {
+
                 int[] anIsomorphism = myGraphModel.GetIsomorphism();
                 string[] anIsomorphismToString = new string[anIsomorphism.Length];
                 for (int i = 0; i < anIsomorphism.Length; i++)
-                    anIsomorphismToString[i] = $"{i + 1} -> {anIsomorphism[i]}";
+                    anIsomorphismToString[i] = $"{i + 1} -> {anIsomorphism[i] + 1}";
                 myGraphView.DisplayGraphIsomorphism(anIsomorphismToString);
             }
             else 
@@ -67,10 +68,10 @@ namespace Controller
 
         private void drawGraph(IGraph theGraph, int theGraphNumber, string[] theGraphVertexColor = null)
         {
-            if (theGraph.getGraphVerticesCount() > 19) return;
-            int aGraphVerticesCount = theGraph.getGraphVerticesCount();
-            int[,] aGraphMatrix = theGraph.getGraphMatrix();
-            float[,] aGraphVertexCoordinates = theGraph.getVertexCoordinates();
+            if (theGraph.GetGraphVerticesCount() > 19) return;
+            int aGraphVerticesCount = theGraph.GetGraphVerticesCount();
+            int[,] aGraphMatrix = theGraph.GetGraphMatrix();
+            float[,] aGraphVertexCoordinates = theGraph.GetVertexCoordinates();
             if (theGraphVertexColor == null)
             {
                 theGraphVertexColor = new string[aGraphVerticesCount];
@@ -84,7 +85,6 @@ namespace Controller
             { 
                 if (i < 9) myGraphView.DrawGraphVertex(theGraphNumber, aGraphVertexCoordinates[i, 0], aGraphVertexCoordinates[i, 1], 20, 20, (i + 1).ToString(), theGraphVertexColor[i]);
                 else myGraphView.DrawGraphVertex(theGraphNumber, aGraphVertexCoordinates[i, 0], aGraphVertexCoordinates[i, 1], 20, 20, (i + 1).ToString(), theGraphVertexColor[i], 0);
-
             }
         }
     }
