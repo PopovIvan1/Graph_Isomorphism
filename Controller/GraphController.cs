@@ -1,6 +1,8 @@
 ﻿using ControllerInfrastructure;
 using ViewInfrastructure;
 using ModelInfrastructure;
+using System.IO;
+using System.Text;
 
 namespace Controller
 {
@@ -33,8 +35,21 @@ namespace Controller
             myGraphModel.StartAlgoritm();
             if (myGraphModel.GetAnswer() != "No")
             {
-
                 int[] anIsomorphism = myGraphModel.GetIsomorphism();
+                string aFileName = "VerticesColors.txt";
+                if (File.Exists(aFileName))
+                {
+                    StreamReader aStreamReader = new StreamReader(aFileName, Encoding.Default);
+                    string[] aFirstGraphVerticesColors = new string[anIsomorphism.Length];
+                    string[] aSecondGraphVerticesColors = new string[anIsomorphism.Length];
+                    for (int i = 0; i < anIsomorphism.Length;i++)
+                    {
+                        aFirstGraphVerticesColors[i] = aStreamReader.ReadLine();
+                        aSecondGraphVerticesColors[anIsomorphism[i]] = aFirstGraphVerticesColors[i];
+                    }
+                    drawGraph(myGraphModel.GetGraph(0), 0, aFirstGraphVerticesColors);
+                    drawGraph(myGraphModel.GetGraph(1), 1, aSecondGraphVerticesColors);
+                }
                 string[] anIsomorphismToString = new string[anIsomorphism.Length];
                 for (int i = 0; i < anIsomorphism.Length; i++)
                     anIsomorphismToString[i] = $"{i + 1} -> {anIsomorphism[i] + 1}";
@@ -51,7 +66,6 @@ namespace Controller
         /// </summary>
         public void UploadFirstGraph()
         {
-            myGraphView.ViewClearFirstGraph();
             myGraphModel.UploadGraph(myGraphView.UploadFile(), 0);
             drawGraph(myGraphModel.GetGraph(0), 0);
         }
@@ -61,14 +75,13 @@ namespace Controller
         /// </summary>
         public void UploadSecondGraph()
         {
-            myGraphView.ViewClearSecondGraph();
             myGraphModel.UploadGraph(myGraphView.UploadFile(), 1);
             drawGraph(myGraphModel.GetGraph(1), 1);
         }
 
         private void drawGraph(IGraph theGraph, int theGraphNumber, string[] theGraphVertexColor = null)
         {
-            if (theGraph.GetGraphVerticesCount() > 19) return;
+            if (theGraph.GetGraphVerticesCount() > 20) return;
             int aGraphVerticesCount = theGraph.GetGraphVerticesCount();
             int[,] aGraphMatrix = theGraph.GetGraphMatrix();
             float[,] aGraphVertexCoordinates = theGraph.GetVertexCoordinates();

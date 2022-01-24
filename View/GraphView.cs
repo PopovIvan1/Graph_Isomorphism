@@ -36,6 +36,7 @@ namespace View
         /// </summary>
         public void DisplayAlgorithmTime(string theTime)
         {
+            myTimeLabel.Text = "Time: ";
             myTimeLabel.Text += theTime;
         }
 
@@ -44,6 +45,7 @@ namespace View
         /// </summary>
         public void DisplayAlgorithmAnswer(string theAnswer)
         {
+            myAnswerLabel.Text = "Answer: ";
             myAnswerLabel.Text += theAnswer;
         }
 
@@ -52,6 +54,7 @@ namespace View
         /// </summary>
         public void DisplayGraphIsomorphism(string[] theIsomorphism)
         {
+            myAnswerTextBox.Clear();
             for (int i = 0; i < theIsomorphism.Length; i++) myAnswerTextBox.Text = myAnswerTextBox.Text + theIsomorphism[i] + '\n';
         }
 
@@ -87,28 +90,6 @@ namespace View
                 aSecondGraphics.DrawString(theContent, new Font("Arial", 11), new SolidBrush(Color.Black), x + theDeltaX, y + 3);
                 aSecondGraphics.DrawEllipse(new Pen(Color.Black), x, y, width, height);
             }
-        }
-
-        /// <summary>
-        /// Clear information about first graph.
-        /// </summary>
-        public void ViewClearFirstGraph()
-        {
-            myTimeLabel.Text = "Time: ";
-            myAnswerLabel.Text = "Answer: ";
-            myAnswerTextBox.Clear();
-            myFirstGraphPictureBox.Image = null;
-        }
-
-        /// <summary>
-        /// Clear information about second graph.
-        /// </summary>
-        public void ViewClearSecondGraph()
-        {
-            myTimeLabel.Text = "Time: ";
-            myAnswerLabel.Text = "Answer: ";
-            myAnswerTextBox.Clear();
-            mySecondGraphPictureBox.Image = null;
         }
 
         private void uploadFirstGraph(object sender, EventArgs e)
