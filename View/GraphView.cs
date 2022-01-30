@@ -119,5 +119,14 @@ namespace View
             }
             else return null;
         }
+
+        /// <summary>
+        /// Assigning the picturebox image to null.
+        /// </summary>
+        public void ZeroingPictureBoxImage(int thePictureBoxNumber)
+        {
+            if (thePictureBoxNumber == 0) myFirstGraphPictureBox.Image = null;
+            else mySecondGraphPictureBox.Image = null;
+        }
     }
 }

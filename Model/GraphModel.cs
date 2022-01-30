@@ -19,6 +19,7 @@ namespace Model
         private string myAlgoritmAnswer = "No";
         private int[] myGraphIsomorphism;
         private List<int>[] mySimilarVertexFromSecondGraph;
+        private int isHeuristicNecessary;
 
         /// <summary>
         /// Upload graph from file.
@@ -99,10 +100,14 @@ namespace Model
         }
 
         /// <summary>
-        /// Start alroritm.
+        /// Start isomorphism alroritm. First the initial equivalence classes are initialized.
+        /// Further, new equivalence classes are formed based on the labels of the current level.
+        /// Comparing new and old classes. If new classes appear, process is repeated. Else the function of forming and checking appointments is launched.
+        /// If necessary, the heuristic algorithm is run.
         /// </summary>
         public void StartAlgoritm()
         {
+            isHeuristicNecessary = 0;
             myGraphIsomorphism = null;
             Stopwatch time = new Stopwatch();
             time.Start();
@@ -176,15 +181,16 @@ namespace Model
                 }
                 if (anEquivalenceClassesCount == anOldEquivalenceClassesCount)
                 {
-                    mySimilarVertexFromSecondGraph = new List<int>[myFirstGraph.GetGraphVerticesCount()];
-                    for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
-                    {
-                        mySimilarVertexFromSecondGraph[i] = new List<int>();
-                        for (int j = 0; j < myFirstGraph.GetGraphVerticesCount(); j++)
-                            if (anEquivalenceClasses[i, 0] == anEquivalenceClasses[j, 1])
-                                mySimilarVertexFromSecondGraph[i].Add(j);
-                    }
+                    setSimilarVertexFromSecondGraph(anEquivalenceClasses);
                     formationAssignment(new int[0], 0);
+                    if (isHeuristicNecessary == 200)
+                    {
+                        isHeuristicNecessary++;
+                        Heuristic aHeuristic = new Heuristic();
+                        anEquivalenceClasses = aHeuristic.GenerateNewClasses(myFirstGraph, mySecondGraph, anEquivalenceClasses);
+                        setSimilarVertexFromSecondGraph(anEquivalenceClasses);
+                        formationAssignment(new int[0], 0);
+                    }
                     if (myGraphIsomorphism == null)
                     {
                         myAlgoritmAnswer = "No";
@@ -254,10 +260,15 @@ namespace Model
             if (myGraphIsomorphism != null) return;
             if (theNextVertexIndex > myFirstGraph.GetGraphVerticesCount() - 1)
             {
+                if (isHeuristicNecessary != 200) isHeuristicNecessary++;
                 if (checkAssignment(theCurrentPath))
                 {
                     myGraphIsomorphism = theCurrentPath;
                 }
+                return;
+            }
+            if (isHeuristicNecessary == 200)
+            {
                 return;
             }
             for (int i = 0; i < mySimilarVertexFromSecondGraph[theNextVertexIndex].Count(); i++)
@@ -273,6 +284,18 @@ namespace Model
                     aNextCurrentPath[theCurrentPath.Length] = mySimilarVertexFromSecondGraph[theNextVertexIndex][i];
                     formationAssignment(aNextCurrentPath, theNextVertexIndex + 1);
                 }
+            }
+        }
+
+        private void setSimilarVertexFromSecondGraph(int[,] theEquivalenceClasses)
+        {
+            mySimilarVertexFromSecondGraph = new List<int>[myFirstGraph.GetGraphVerticesCount()];
+            for (int i = 0; i < myFirstGraph.GetGraphVerticesCount(); i++)
+            {
+                mySimilarVertexFromSecondGraph[i] = new List<int>();
+                for (int j = 0; j < myFirstGraph.GetGraphVerticesCount(); j++)
+                    if (theEquivalenceClasses[i, 0] == theEquivalenceClasses[j, 1])
+                        mySimilarVertexFromSecondGraph[i].Add(j);
             }
         }
     }

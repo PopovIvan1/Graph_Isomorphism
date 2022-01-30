@@ -19,35 +19,71 @@ namespace Model
         public int[,] GenerateNewClasses(Graph theFirstGraph, Graph theSecondGraph, int[,] theOldEquivalenceClasses)
         {
             int[] aFirstGraphEquivalenceClasses = new int[theFirstGraph.GetGraphVerticesCount()];
-            int[] aSecondGraphEquivalenceClasses = new int[theFirstGraph.GetGraphVerticesCount()];
             for (int i = 0; i < aFirstGraphEquivalenceClasses.Length; i++) 
             {
                 aFirstGraphEquivalenceClasses[i] = theOldEquivalenceClasses[i, 0];
-                aSecondGraphEquivalenceClasses[i] = theOldEquivalenceClasses[i, 1];
             }
             var aVerticesCountFromEquivalenceClasses = aFirstGraphEquivalenceClasses.GroupBy(anEquivalenceClass => anEquivalenceClass);
             var aMaxVerticesCount = aVerticesCountFromEquivalenceClasses.Max(anElement => ((ICollection<int>)anElement).Count);
             var aMaxEquivalenceClass = aVerticesCountFromEquivalenceClasses.First(anElement => ((ICollection<int>)anElement).Count == aMaxVerticesCount);
-            //aMaxEquivalenceClass.Key
-            myNewEquivalenceClasses = new int[theFirstGraph.GetGraphVerticesCount(), 2];
+            int aFixedVertexFromFirstGraph = -1;
+            int aFixedVertexFromSecondGraph = -1;
+            int anIndex = 0;
+            while (aFixedVertexFromFirstGraph == -1 || aFixedVertexFromSecondGraph == -1)
+            {
+                if (theOldEquivalenceClasses[anIndex, 0] == aMaxEquivalenceClass.Key) aFixedVertexFromFirstGraph = anIndex;
+                if (theOldEquivalenceClasses[anIndex, 1] == aMaxEquivalenceClass.Key) aFixedVertexFromSecondGraph = anIndex;
+                anIndex++;
+            }
+            myNewEquivalenceClasses = setNewEquivalenceClasses(theFirstGraph.GetGraphMatrix(), theSecondGraph.GetGraphMatrix(), theFirstGraph.GetGraphVerticesCount(), theOldEquivalenceClasses, aFixedVertexFromFirstGraph, aFixedVertexFromSecondGraph); ;
             return myNewEquivalenceClasses;
         }
 
         /// <summary>
         /// Based on the fixation of two given vertices, generates new equivalence classes.
         /// </summary>
-        private int[] setNewEquivalenceClasses(int[,] theGraphMatrix, int theVerticesCount, int[] theOldEquivalenceClasses, int theFixedVertex)
+        private int[,] setNewEquivalenceClasses(int[,] theFirstGraphMatrix, int[,] theSecondGraphMatrix, int theVerticesCount, int[,] theOldEquivalenceClasses, int theFixedVertexFromFirstGraph, int theFixedVertexFromSecondGraph)
         {
-            int[] aNewEquivalenceClasses = new int[theVerticesCount];
-            int[] aGluingOldAndNewClasses = new int[theVerticesCount];
+            int[,] aNewEquivalenceClasses = new int[theVerticesCount, 2];
+            int[,] aGluingOldAndNewClasses = new int[theVerticesCount, 2];
+            int anEquivalenceClassNumber;
+            int[] aFirstGraphEquivalenceClasses = setAuxiliaryEquivalenceClasses(theVerticesCount, theFirstGraphMatrix, theFixedVertexFromFirstGraph);
+            int[] aSecondGraphEquivalenceClasses = setAuxiliaryEquivalenceClasses(theVerticesCount, theSecondGraphMatrix, theFixedVertexFromSecondGraph); 
             for (int i = 0; i < theVerticesCount; i++)
             {
-                aNewEquivalenceClasses[i] = 0;
-                aGluingOldAndNewClasses[i] = 0;
+                aNewEquivalenceClasses[i, 0] = aFirstGraphEquivalenceClasses[i];
+                aNewEquivalenceClasses[i, 1] = aSecondGraphEquivalenceClasses[i];
+                aGluingOldAndNewClasses[i, 0] = 0;
+                aGluingOldAndNewClasses[i, 1] = 0;
             }
+            anEquivalenceClassNumber = 1;
+            for (int i = 0; i < theVerticesCount; i++)
+            {
+                if (aGluingOldAndNewClasses[i, 0] == 0)
+                {
+                    aGluingOldAndNewClasses[i, 0] = anEquivalenceClassNumber;
+                    anEquivalenceClassNumber++;
+                    for (int j = 0; j < theVerticesCount; j++)
+                    {
+                        if ((aNewEquivalenceClasses[j, 0] == aNewEquivalenceClasses[i, 0]) && (theOldEquivalenceClasses[j, 0] == theOldEquivalenceClasses[i, 0])) 
+                            aGluingOldAndNewClasses[j, 0] = aGluingOldAndNewClasses[i, 0];
+                        if ((aNewEquivalenceClasses[j, 1] == aNewEquivalenceClasses[i, 0]) && (theOldEquivalenceClasses[j, 1] == theOldEquivalenceClasses[i, 0]))
+                            aGluingOldAndNewClasses[j, 1] = aGluingOldAndNewClasses[i, 0];
+                    }
+                }
+            }
+            aGluingOldAndNewClasses[theFixedVertexFromFirstGraph, 0] = anEquivalenceClassNumber;
+            aGluingOldAndNewClasses[theFixedVertexFromSecondGraph, 1] = anEquivalenceClassNumber;
+            return aGluingOldAndNewClasses;
+        }
+
+        private int[] setAuxiliaryEquivalenceClasses(int theVerticesCount, int[,] theGraphMatrix, int theFixedVertex)
+        {
             int anEquivalenceClassNumber = 1;
-            aNewEquivalenceClasses[theFixedVertex] = anEquivalenceClassNumber;
             int anOldEquivalenceClassNumber = -1;
+            int[] aNewEquivalenceClasses = new int[theVerticesCount];
+            for (int i = 0; i < theVerticesCount; i++) aNewEquivalenceClasses[i] = 0;
+            aNewEquivalenceClasses[theFixedVertex] = anEquivalenceClassNumber;
             while (anEquivalenceClassNumber != anOldEquivalenceClassNumber)
             {
                 anOldEquivalenceClassNumber = anEquivalenceClassNumber;
@@ -57,7 +93,7 @@ namespace Model
                     {
                         for (int j = 0; j < theVerticesCount; j++)
                         {
-                            if (theGraphMatrix[i, j] == 1) 
+                            if (theGraphMatrix[i, j] == 1)
                             {
                                 if (aNewEquivalenceClasses[j] == 0)
                                 {
@@ -69,21 +105,7 @@ namespace Model
                     }
                 }
             }
-            anEquivalenceClassNumber = 1;
-            for (int i = 0; i < theVerticesCount; i++)
-            {
-                if (aGluingOldAndNewClasses[i] == 0)
-                {
-                    aGluingOldAndNewClasses[i] = anEquivalenceClassNumber;
-                    anEquivalenceClassNumber++;
-                    for (int j = 0; j < theVerticesCount; j++)
-                    {
-                        if (aNewEquivalenceClasses[j] == aNewEquivalenceClasses[i] && theOldEquivalenceClasses[j] == theOldEquivalenceClasses[i])
-                            aGluingOldAndNewClasses[j] = aGluingOldAndNewClasses[i];
-                    }
-                }
-            }
-            return aGluingOldAndNewClasses;
+            return aNewEquivalenceClasses;
         }
     }
 }

@@ -66,6 +66,7 @@ namespace Controller
         /// </summary>
         public void UploadFirstGraph()
         {
+            myGraphView.ZeroingPictureBoxImage(0);
             myGraphModel.UploadGraph(myGraphView.UploadFile(), 0);
             drawGraph(myGraphModel.GetGraph(0), 0);
         }
@@ -75,6 +76,7 @@ namespace Controller
         /// </summary>
         public void UploadSecondGraph()
         {
+            myGraphView.ZeroingPictureBoxImage(1);
             myGraphModel.UploadGraph(myGraphView.UploadFile(), 1);
             drawGraph(myGraphModel.GetGraph(1), 1);
         }

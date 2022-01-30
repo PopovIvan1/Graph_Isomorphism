@@ -40,5 +40,10 @@ namespace ViewInfrastructure
         /// Upload text file.
         /// </summary>
         string UploadFile();
+
+        /// <summary>
+        /// Assigning the picturebox image to null.
+        /// </summary>
+        void ZeroingPictureBoxImage(int thePictureBoxNumber);
     }
 }
