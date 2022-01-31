@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using ViewInfrastructure;
 
@@ -27,6 +28,7 @@ namespace View
             myFirstGraphBotton.Click += uploadFirstGraph;
             mySecondGraphBotton.Click += uploadSecondGraph;
             myAnswerBotton.Click += getAnswer;
+            mySaveButton.Click += saveIsomorphism;
             aFirstGraphics = myFirstGraphPictureBox.CreateGraphics();
             aSecondGraphics = mySecondGraphPictureBox.CreateGraphics();
         }
@@ -92,19 +94,32 @@ namespace View
             }
         }
 
-        private void uploadFirstGraph(object sender, EventArgs e)
+        private void uploadFirstGraph(object theSender, EventArgs theArgs)
         {
             UploadFirstGraph?.Invoke();
         }
 
-        private void uploadSecondGraph(object sender, EventArgs e)
+        private void uploadSecondGraph(object theSender, EventArgs theArgs)
         {
             UploadSecondGraph?.Invoke();
         }
 
-        private void getAnswer(object sender, EventArgs e)
+        private void getAnswer(object theSender, EventArgs theArgs)
         {
             GetAnswer?.Invoke();
+        }
+
+        private void saveIsomorphism(object theSender, EventArgs theArgs)
+        {
+            if (!string.IsNullOrWhiteSpace(myAnswerTextBox.Text))
+            {
+                SaveFileDialog aDialog = new SaveFileDialog();
+                aDialog.Filter = "TXT Files|*.txt";
+                if (aDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(aDialog.FileName, myAnswerTextBox.Text);
+                }
+            }
         }
 
         /// <summary>

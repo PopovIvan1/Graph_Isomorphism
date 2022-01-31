@@ -20,6 +20,7 @@ namespace Model
         private int[] myGraphIsomorphism;
         private List<int>[] mySimilarVertexFromSecondGraph;
         private int isHeuristicNecessary;
+        private int necessityCriterion = 25;
 
         /// <summary>
         /// Upload graph from file.
@@ -183,7 +184,7 @@ namespace Model
                 {
                     setSimilarVertexFromSecondGraph(anEquivalenceClasses);
                     formationAssignment(new int[0], 0);
-                    while (isHeuristicNecessary == 200)
+                    while (isHeuristicNecessary == necessityCriterion)
                     {
                         isHeuristicNecessary = 0;
                         Heuristic aHeuristic = new Heuristic();
@@ -260,14 +261,14 @@ namespace Model
             if (myGraphIsomorphism != null) return;
             if (theNextVertexIndex > myFirstGraph.GetGraphVerticesCount() - 1)
             {
-                if (isHeuristicNecessary != 200) isHeuristicNecessary++;
+                if (isHeuristicNecessary != necessityCriterion) isHeuristicNecessary++;
                 if (checkAssignment(theCurrentPath))
                 {
                     myGraphIsomorphism = theCurrentPath;
                 }
                 return;
             }
-            if (isHeuristicNecessary == 200)
+            if (isHeuristicNecessary == necessityCriterion)
             {
                 return;
             }

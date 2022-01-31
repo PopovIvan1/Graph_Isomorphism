@@ -37,6 +37,7 @@
             this.myAnswerLabel = new System.Windows.Forms.Label();
             this.myIsomorphismLabel = new System.Windows.Forms.Label();
             this.myTimeLabel = new System.Windows.Forms.Label();
+            this.mySaveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.myFirstGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mySecondGraphPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +62,7 @@
             // 
             this.myAnswerTextBox.Location = new System.Drawing.Point(1113, 66);
             this.myAnswerTextBox.Name = "myAnswerTextBox";
-            this.myAnswerTextBox.Size = new System.Drawing.Size(97, 94);
+            this.myAnswerTextBox.Size = new System.Drawing.Size(112, 262);
             this.myAnswerTextBox.TabIndex = 17;
             this.myAnswerTextBox.Text = "";
             // 
@@ -76,7 +77,7 @@
             // 
             // mySecondGraphBotton
             // 
-            this.mySecondGraphBotton.Location = new System.Drawing.Point(859, 78);
+            this.mySecondGraphBotton.Location = new System.Drawing.Point(859, 100);
             this.mySecondGraphBotton.Name = "mySecondGraphBotton";
             this.mySecondGraphBotton.Size = new System.Drawing.Size(112, 51);
             this.mySecondGraphBotton.TabIndex = 19;
@@ -85,7 +86,7 @@
             // 
             // myAnswerBotton
             // 
-            this.myAnswerBotton.Location = new System.Drawing.Point(859, 152);
+            this.myAnswerBotton.Location = new System.Drawing.Point(859, 188);
             this.myAnswerBotton.Name = "myAnswerBotton";
             this.myAnswerBotton.Size = new System.Drawing.Size(112, 51);
             this.myAnswerBotton.TabIndex = 20;
@@ -113,17 +114,27 @@
             // myTimeLabel
             // 
             this.myTimeLabel.AutoSize = true;
-            this.myTimeLabel.Location = new System.Drawing.Point(1016, 229);
+            this.myTimeLabel.Location = new System.Drawing.Point(856, 282);
             this.myTimeLabel.Name = "myTimeLabel";
             this.myTimeLabel.Size = new System.Drawing.Size(43, 17);
             this.myTimeLabel.TabIndex = 23;
             this.myTimeLabel.Text = "Time:";
+            // 
+            // mySaveButton
+            // 
+            this.mySaveButton.Location = new System.Drawing.Point(1113, 334);
+            this.mySaveButton.Name = "mySaveButton";
+            this.mySaveButton.Size = new System.Drawing.Size(112, 51);
+            this.mySaveButton.TabIndex = 24;
+            this.mySaveButton.Text = "Save isomorphism";
+            this.mySaveButton.UseVisualStyleBackColor = true;
             // 
             // GraphView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1315, 450);
+            this.Controls.Add(this.mySaveButton);
             this.Controls.Add(this.myTimeLabel);
             this.Controls.Add(this.myIsomorphismLabel);
             this.Controls.Add(this.myAnswerLabel);
@@ -152,6 +163,7 @@
         private System.Windows.Forms.Label myAnswerLabel;
         private System.Windows.Forms.Label myIsomorphismLabel;
         private System.Windows.Forms.Label myTimeLabel;
+        private System.Windows.Forms.Button mySaveButton;
     }
 }
 

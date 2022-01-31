@@ -10,7 +10,7 @@ namespace ViewInfrastructure
         Action UploadFirstGraph { get; set; }
         Action UploadSecondGraph { get; set; }
         Action GetAnswer { get; set; }
-        
+
         /// <summary>
         /// Display the running time of the algorithm.
         /// </summary>
