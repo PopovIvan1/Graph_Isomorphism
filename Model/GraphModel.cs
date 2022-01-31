@@ -183,9 +183,9 @@ namespace Model
                 {
                     setSimilarVertexFromSecondGraph(anEquivalenceClasses);
                     formationAssignment(new int[0], 0);
-                    if (isHeuristicNecessary == 200)
+                    while (isHeuristicNecessary == 200)
                     {
-                        isHeuristicNecessary++;
+                        isHeuristicNecessary = 0;
                         Heuristic aHeuristic = new Heuristic();
                         anEquivalenceClasses = aHeuristic.GenerateNewClasses(myFirstGraph, mySecondGraph, anEquivalenceClasses);
                         setSimilarVertexFromSecondGraph(anEquivalenceClasses);
